@@ -146,6 +146,12 @@ namespace Amazon.Runtime.Internal
         {
             foreach (var item in headers)
             {
+                //unity web request doesnt allow us to add the Host, User-Agent and Content-Length headers
+                if (item.Key.Equals(HeaderKeys.HostHeader, StringComparison.InvariantCultureIgnoreCase)
+                        || item.Key.Equals(HeaderKeys.ContentLengthHeader, StringComparison.InvariantCultureIgnoreCase)
+                        || item.Key.Equals(HeaderKeys.UserAgentHeader, StringComparison.InvariantCultureIgnoreCase))
+                    continue;
+
                 this.Headers.Add(item);
             }
         }
